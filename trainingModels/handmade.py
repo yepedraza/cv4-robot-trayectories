@@ -14,17 +14,17 @@ def Dataset_creation():
     x_train_raw = x_train_raw.astype('float32') / 255.0
     x_test = x_test_raw.astype('float32') / 255.0
     #Adding grayscale channel
-    x_train_raw = np.expand_dims(x_train_raw, -1)
-    x_test = np.expand_dims(x_test, -1)
+    #x_train_raw = np.expand_dims(x_train_raw, -1)
+    #x_test = np.expand_dims(x_test, -1)
     #Categorical labels
     y_train = to_categorical(y_train_raw)
     y_test = to_categorical(y_test_raw)
     #Data quantity assigment
-    x_train = x_train_raw[1:10,:,:,:] 
+    x_train = x_train_raw[1:10,:,:] 
     y_train = y_train[1:10,:]
+    print(x_train.shape)
     #Applying a matrix transform
-    x_train = np.reshape(10, 784, 1)
-    y_train = np.reshape(10, 784, 1)
+    x_train = x_train.reshape(9, 784)
 
     return x_train, y_train, x_test_raw
 
@@ -72,13 +72,19 @@ def Forward(params, x_data):
         
 
 def BackPropagation(params, y_train, d):
-    params['dZ2'] = mse(y_train, params['A2'], d) * relu(params['A2'], d)
+    params['dZ3'] = mse(y_train, params['A3'], d) * relu(params['A3'], d)
+    params['dW3'] = params['A2'].T@params['dZ3']
+
+    params['dZ2'] = params['dZ3']@params['W3'].T * relu(params['A2'], d)
     params['dW2'] = params['A1'].T@params['dZ2']
 
     params['dZ1'] = params['dZ2']@params['W2'].T * relu(params['A1'], d)
     params['dW1'] = params['A0'].T@params['dZ1']
 
 def WeightAdjust(params, lr):
+    params['W3'] = params['W3'] - params['dW3'] *  lr
+    params['b3'] = params['b3'] - (np.mean(params['dZ3'], axis=0, keepdims=True)) * lr
+
     params['W2'] = params['W2'] - params['dW2'] *  lr
     params['b2'] = params['b2'] - (np.mean(params['dZ2'], axis=0, keepdims=True)) * lr
 
