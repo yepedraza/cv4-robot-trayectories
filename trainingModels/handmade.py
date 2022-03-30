@@ -20,11 +20,11 @@ def Dataset_creation():
     y_train = to_categorical(y_train_raw)
     y_test = to_categorical(y_test_raw)
     #Data quantity assigment
-    x_train = x_train_raw[1:10,:,:] 
-    y_train = y_train[1:10,:]
+    x_train = x_train_raw[1:40001,:,:] 
+    y_train = y_train[1:40001,:]
     print(x_train.shape)
     #Applying a matrix transform
-    x_train = x_train.reshape(9, 784)
+    x_train = x_train.reshape(40000, 784)
 
     return x_train, y_train, x_test_raw
 
@@ -52,6 +52,11 @@ def relu(x, derivate = False):
     else:
         return np.maximum(0,x)
 
+def sigmoid(x, derivate = False):
+    if derivate:
+        return np.exp(-x)/((np.exp(-x)+1)**2)
+    else:
+        return (1/(1+np.exp(-x)))
 ######################################## TRAINING ###################################################
 def Forward(params, x_data):
 
@@ -64,7 +69,7 @@ def Forward(params, x_data):
     params['A2'] = relu(params['Z2'])
 
     params['Z3'] = (params['A2']@params['W3']) + params['b3'] 
-    params['A3'] = relu(params['Z3'])
+    params['A3'] = sigmoid(params['Z3'])
 
     output = params['A3']
 
@@ -72,7 +77,7 @@ def Forward(params, x_data):
         
 
 def BackPropagation(params, y_train, d):
-    params['dZ3'] = mse(y_train, params['A3'], d) * relu(params['A3'], d)
+    params['dZ3'] = mse(y_train, params['A3'], d) * sigmoid(params['A3'], d)
     params['dW3'] = params['A2'].T@params['dZ3']
 
     params['dZ2'] = params['dZ3']@params['W3'].T * relu(params['A2'], d)
@@ -126,18 +131,6 @@ def run():
     #Plot errors vs epochs
     plt.plot(error)
 
-    #Validation
-
-    #We select 1 random image of the test dataset (10.000 images)
-    image = random.choice(x_test_raw)
-    plt.imshow(image, cmap=plt.get_cmap('gray'))
-    plt.show()
-
-    #Data normalize and Property vector
-    image = (image.reshape((1, 28, 28))).astype('float32') / 255.0
-    image = image.reshape(1, 784)
-    params, predict = Forward(params, image)
-    print(predict)
 
 if __name__ == '__main__':
 
