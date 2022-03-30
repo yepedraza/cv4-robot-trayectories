@@ -13,15 +13,18 @@ def Dataset_creation():
 
     x_train_raw = x_train_raw.astype('float32') / 255.0
     x_test = x_test_raw.astype('float32') / 255.0
-    #adding grayscale channel
+    #Adding grayscale channel
     x_train_raw = np.expand_dims(x_train_raw, -1)
     x_test = np.expand_dims(x_test, -1)
-    #categorical labels
+    #Categorical labels
     y_train = to_categorical(y_train_raw)
     y_test = to_categorical(y_test_raw)
-    #data quantity assigment
-    x_train = x_train_raw[1:60000,:,:,:] 
-    y_train = y_train[1:60000,:]
+    #Data quantity assigment
+    x_train = x_train_raw[1:10,:,:,:] 
+    y_train = y_train[1:10,:]
+    #Applying a matrix transform
+    x_train = np.reshape(10, 784, 1)
+    y_train = np.reshape(10, 784, 1)
 
     return x_train, y_train, x_test_raw
 
@@ -122,6 +125,7 @@ def run():
 
     #Data normalize and Property vector
     image = (image.reshape((1, 28, 28, 1))).astype('float32') / 255.0
+    image = np.reshape(1, 784, 1)
     params, predict = Forward(params, image)
     print(predict)
 
