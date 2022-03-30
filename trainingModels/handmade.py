@@ -81,6 +81,8 @@ def BackPropagation(params, y_train, d):
     params['dZ1'] = params['dZ2']@params['W2'].T * relu(params['A1'], d)
     params['dW1'] = params['A0'].T@params['dZ1']
 
+    return params
+
 def WeightAdjust(params, lr):
     params['W3'] = params['W3'] - params['dW3'] *  lr
     params['b3'] = params['b3'] - (np.mean(params['dZ3'], axis=0, keepdims=True)) * lr
@@ -90,6 +92,8 @@ def WeightAdjust(params, lr):
 
     params['W1'] = params['W1'] - params['dW1'] *  lr
     params['b1'] = params['b1'] - (np.mean(params['dZ1'], axis=0, keepdims=True)) * lr
+
+    return params
 
 def run():
     
@@ -130,8 +134,8 @@ def run():
     plt.show()
 
     #Data normalize and Property vector
-    image = (image.reshape((1, 28, 28, 1))).astype('float32') / 255.0
-    image = np.reshape(1, 784, 1)
+    image = (image.reshape((1, 28, 28))).astype('float32') / 255.0
+    image = image.reshape(1, 784)
     params, predict = Forward(params, image)
     print(predict)
 
