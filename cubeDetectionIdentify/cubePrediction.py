@@ -40,12 +40,15 @@ for cont in contours:
     toPredictContent = (th2.reshape((1, 28, 28, 1))).astype('float32') / 255.0
     prediction_v = model.predict(toPredictContent)[0]
     prediction = np.argmax(prediction_v, axis=-1)
-    print("Prediction: ", prediction)
-    print("Ownership Percentage: ", prediction_v*100)
+    print("\nPrediction: ", prediction)
+    np.set_printoptions(precision = 3, suppress = True)
+    print("Ownership Percentage:", prediction_v*100)#S, prediction_v*100)
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     middle = (aprox[1, 0] + aprox[-1, 0])//2
-    cv2.putText(idGray, 'prediction: {}'.format(prediction), (middle, aprox[-1, 1]+30), font, 1, (0,0,255), 2)
+    cv2.putText(idGray, 'prediction: {} {:.2f}%'.format(prediction, prediction_v[prediction]*100),
+                (middle, aprox[-1, 1]+30), font, 0.8, (0,0,255), 2)
+
     points.append([aprox[1, 0], aprox[1, 1]])
     # print("Prediction: ", prediction)
     # cv2.imshow('Imagen', idGray)
