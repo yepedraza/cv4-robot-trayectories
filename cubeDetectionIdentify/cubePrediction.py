@@ -56,7 +56,7 @@ points = np.array(points)
 #### SE DIBUJA LA TRAYECTORIA, SIN EMBARGO NO SE HA ORDENADO ####
 for i in range(points.shape[0]-1):
     cv2.line(idGray, (points[i,:]),(points[i+1,:]),(0,0,255),3)
-    
+
 # print('points:', points[0,:])
 # cv2.imshow('Imagen', No_Noise)
 # cv2.imshow('Imagen', gray)
