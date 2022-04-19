@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
-model = tf.keras.models.load_model('model_1.h5')
+model = tf.keras.models.load_model('../trainingModels/models_export/model_1.h5')
 image = cv2.imread('ProveImage2.jpg')
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -38,8 +38,10 @@ for cont in contours:
     th2 = 255 - th2
 
     toPredictContent = (th2.reshape((1, 28, 28, 1))).astype('float32') / 255.0
-    # prediction = model.predict(toPredictContent)
-    prediction = np.argmax(model.predict(toPredictContent)[0], axis=-1)
+    prediction_v = model.predict(toPredictContent)[0]
+    prediction = np.argmax(prediction_v, axis=-1)
+    print("Prediction: ", prediction)
+    print("Ownership Percentage: ", prediction_v*100)
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     middle = (aprox[1, 0] + aprox[-1, 0])//2
