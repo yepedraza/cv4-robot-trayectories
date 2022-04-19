@@ -12,13 +12,15 @@ border = cv2.Canny(th, 170, 200) #Modificar a conveniencia
 
 contours, hierarchy = cv2.findContours(border, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 idGray = gray.copy()
-
+points = []
+points.append([0, np.array(image).shape[0]//2])
 for cont in contours:
     epsilon = 0.01*cv2.arcLength(cont, True) #Modificar a conveniencia
     aprox =  cv2.approxPolyDP(cont, epsilon, True)
     aprox = aprox.reshape(aprox.shape[0], aprox.shape[-1])
 
-    cv2.rectangle(idGray, (aprox[1, 0], aprox[1, 1]), (aprox[-1, 0], aprox[-1, 1]), (0,0,255), 2)
+    cv2.rectangle(idGray, (aprox[1, 0], aprox[1, 1]), (aprox[-1, 0], aprox[-1, 1]), (0,0,255), 2) #x, y
+
 
     # cv2.circle(idGray, (aprox[1, 0], aprox[1, 1]), 30, (0,0,255) , 5)
     # cv2.circle(idGray, (aprox[-1, 0], aprox[-1, 1]), 30, (0,0,255) , 5)
@@ -30,7 +32,6 @@ for cont in contours:
     content = idGray[ aprox[1, 1]:aprox[-1, 1], aprox[1, 0]:aprox[-1, 0] ]
     content = cv2.resize(content, (28, 28), interpolation = cv2.INTER_CUBIC) #Tamaño de la imágen re hecha
 
-    # print(prediction)
     # POSIBLES ARREGLOS RED NEURONAL
     _, th2 = cv2.threshold(content, 170, 255, cv2.THRESH_BINARY)
     # print(th2)
@@ -42,11 +43,25 @@ for cont in contours:
     print("Prediction: ", prediction)
     print("Ownership Percentage: ", prediction_v*100)
 
-    cv2.imshow('Imagen', th2)
-    cv2.waitKey(0)
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    middle = (aprox[1, 0] + aprox[-1, 0])//2
+    cv2.putText(idGray, 'prediction: {}'.format(prediction), (middle, aprox[-1, 1]+30), font, 1, (0,0,255), 2)
+    points.append([aprox[1, 0], aprox[1, 1]])
+    # print("Prediction: ", prediction)
+    # cv2.imshow('Imagen', idGray)
+    # cv2.waitKey(0)
 
+points.append([np.array(image).shape[1], np.array(image).shape[0]//2])
+points = np.array(points)
+
+
+#### SE DIBUJA LA TRAYECTORIA, SIN EMBARGO NO SE HA ORDENADO ####
+for i in range(points.shape[0]-1):
+    cv2.line(idGray, (points[i,:]),(points[i+1,:]),(0,0,255),3)
+    
+# print('points:', points[0,:])
 # cv2.imshow('Imagen', No_Noise)
 # cv2.imshow('Imagen', gray)
-cv2.imshow('border', th)
+cv2.imshow('border', idGray)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
