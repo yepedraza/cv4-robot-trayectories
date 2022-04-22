@@ -1,0 +1,163 @@
+\documentclass[journal]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{nccmath}
+\usepackage{subfigure}
+\usepackage{amsfonts,latexsym} % para tener disponibilidad de diversos simbolos
+\usepackage{enumerate}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{threeparttable}
+\usepackage{array,colortbl}
+\usepackage{ifpdf}
+\usepackage{rotating}
+\usepackage{cite}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{makecell}%To keep spacing of text in tables
+\setcellgapes{2pt}%parameter for the spacing in tables
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}  %% Se crea un nuevo tipo de columna llamada P.
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcommand{\ctt}{\centering\scriptsize\textbf} %%\ctt abrevia el comando \centering\scriptsize\textbf
+\newcommand{\dtt}{\scriptsize\textbf} %%\dtt abrevia el comando \scriptsize\textbf
+\renewcommand\IEEEkeywordsname{Palabras clave}
+
+
+
+\hyphenation{} 
+
+\graphicspath{ {figs/} } 
+
+
+
+\newcommand{\MYhead}{\smash{\scriptsize
+\hfil\parbox[t][\height][t]{\textwidth}{\centering
+\begin{picture}(0,0) \put(-0,-17){\includegraphics[width=33mm]{LogoUMNG}} \end{picture} \hspace{5.9cm}
+INFORME DE PRÁCTICA DE LABORATORIO \hspace{4.7cm} Versión 1.0\\
+\hspace{6.45cm} PROGRAMA DE INGENIERÍA MECATRÓNICA \hspace{4.65cm} Periodo 2022-1\\
+\underline{\hspace{ \textwidth}}}\hfil\hbox{}}}
+\makeatletter
+% normal pages
+\def\ps@headings{%
+\def\@oddhead{\MYhead}%
+\def\@evenhead{\MYhead}}%
+% title page
+\def\ps@IEEEtitlepagestyle{%
+\def\@oddhead{\MYhead}%
+\def\@evenhead{\MYhead}}%
+\makeatother
+% make changes take effect
+\pagestyle{headings}
+% adjust as needed
+\addtolength{\footskip}{0\baselineskip}
+\addtolength{\textheight}{-1\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{Reconocimiento de caracteres con redes neuronales}
+
+\author{Julián~Garzón,~
+        Alejandro~Martínez,~Yery~Pedraza,~Oscar~Rodríguez,~
+        y~Santiago~Téllez\\
+				\textit{est.\{,~yery.pedraza,~oscar.rodriguez9,~y~\}@unimilitar.edu.co}\\
+				Profesor:~Camilo~Hurtado\\% stops a space
+\thanks{El presente documento corresponde a un informe de desarrollo práctica de laboratorio de Inteligencia Artificial presentado en la Universidad Militar Nueva Granada durante el periodo 2022-1.}} %\thanks anexa una nota a pie de página donde se puede colocar alguna información sobre la naturaleza del documento.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Comando que indica la generación del título
+\maketitle
+
+\begin{abstract}
+Breve resumen de la tarea, los ejercicios realizados y algunos resultados obtenidos.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%
+\begin{IEEEkeywords}
+Escribir las palabras clave que se encuentran en el documento.
+\end{IEEEkeywords}
+%%%%%%%%%%%%%%%%%%%%%%
+%\IEEEpeerreviewmaketitle
+
+
+\section{Competencias a desarrollar}
+\begin{itemize}
+\item Competencia 1.
+\item Competencia 2.
+\item Competencia 3.
+\end{itemize}
+
+
+\section{Desarrollo de la práctica}
+En esta sección se describen los diferentes experimentos, cálculos y simulaciones solicitados, junto a los resultados obtenidos representados mediante gráficas y tablas.
+
+\subsection{Descripción de patrones a reconocer}
+
+\subsection{Implementación del modelo manual}
+
+\subsection{Implementación del modelo con Python y Keras}
+
+\subsection{Comparación y elección entre los métodos propuestos}
+
+\subsection{Ajuste del modelo}
+
+\subsection{Implementación de visión de máquina}
+
+\subsection{Implementación de interfaz gráfica de usuario}
+
+\section{Conclusiones}
+
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+\begin{thebibliography}{1}
+
+\bibitem{imagenes}
+Youtube, canal schaparro. \url{https://youtu.be/IhvF6iY7n5k}. Recuperado el 30 de Enero de 2017.
+
+\bibitem{GNUp}
+Gnuplot homepage. \url{http://www.gnuplot.info/}. Recuperado el 26 de Julio de 2018.
+
+\bibitem{dia}
+Dia Diagram Editor. \url{https://sourceforge.net/projects/dia-installer/}. Recuperado el 30 de Enero de 2017.
+
+\bibitem{xcircuit}
+XCircuit, Open Circuit Design. \url{http://opencircuitdesign.com/xcircuit/}. Recuperado el 26 de Julio de 2018.
+
+\bibitem{nombre_para_citar}
+Inicial1.~Apellido1 and Inicial2.~Apellido2, \emph{Nombre de libro}, \#edición~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Ciudad, País: Editorial, año.
+
+\bibitem{kopka}
+H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+\bibitem{link}
+Overleaf. \url{https://www.overleaf.com/}. Recuperado el 02 de Febrero de 2017.
+
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% FIN DEL DOCUMENTO %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
