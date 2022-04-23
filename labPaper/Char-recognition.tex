@@ -12,7 +12,7 @@
 \usepackage{adjustbox}
 \usepackage{nccmath}
 \usepackage{subfigure}
-\usepackage{amsfonts,latexsym} % para tener disponibilidad de diversos simbolos
+\usepackage{amsfonts,latexsym} 
 \usepackage{enumerate}
 \usepackage{booktabs}
 \usepackage{float}
@@ -25,13 +25,13 @@
 \usepackage{url}
 \usepackage{listings}
 \usepackage{amsmath}
-\usepackage{makecell}%To keep spacing of text in tables
-\setcellgapes{2pt}%parameter for the spacing in tables
+\usepackage{makecell}
+\setcellgapes{2pt}
 
-\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}  %% Se crea un nuevo tipo de columna llamada P.
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}  
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
-\newcommand{\ctt}{\centering\scriptsize\textbf} %%\ctt abrevia el comando \centering\scriptsize\textbf
-\newcommand{\dtt}{\scriptsize\textbf} %%\dtt abrevia el comando \scriptsize\textbf
+\newcommand{\ctt}{\centering\scriptsize\textbf} 
+\newcommand{\dtt}{\scriptsize\textbf} 
 \renewcommand\IEEEkeywordsname{Palabras clave}
 
 
@@ -72,53 +72,354 @@ INFORME DE PRÁCTICA DE LABORATORIO \hspace{4.7cm} Versión 1.0\\
 \author{Julián~Garzón,~
         Alejandro~Martínez,~Yery~Pedraza,~Oscar~Rodríguez,~
         y~Santiago~Téllez\\
-				\textit{est.\{,~yery.pedraza,~oscar.rodriguez9,~y~\}@unimilitar.edu.co}\\
+				\textit{est.\{julian.garzon2, nicolasa.marti1,~yery.pedraza,~oscar.rodriguez9~y~santiago.téllez\}@unimilitar.edu.co}\\
 				Profesor:~Camilo~Hurtado\\% stops a space
-\thanks{El presente documento corresponde a un informe de desarrollo práctica de laboratorio de Inteligencia Artificial presentado en la Universidad Militar Nueva Granada durante el periodo 2022-1.}} %\thanks anexa una nota a pie de página donde se puede colocar alguna información sobre la naturaleza del documento.
+\thanks{El presente documento corresponde a un informe de desarrollo práctica de laboratorio de Inteligencia Artificial presentado en la Universidad Militar Nueva Granada durante el periodo 2022-1.}} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Comando que indica la generación del título
+
 \maketitle
 
 \begin{abstract}
-Breve resumen de la tarea, los ejercicios realizados y algunos resultados obtenidos.
+Se implementaron dos modelos de redes neuronales par el reconocimiento de caracteres en Python por medio de una interfaz de usuario y visión de máquina. El primer modelo, consta de una serie de funciones desarrolladas matemáticamente para una red neuronal de dos capas ocultas, capaz de leer imágenes del dataset de MNIST. El segundo modelo, fue desarrollado con ayuda de la librería Keras con la misma arquitectura del modelo anterior. Para la visión de máquina utilizamos la librería OpenCV y para la interfaz gráfica usamos TKinter. 
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%
 \begin{IEEEkeywords}
-Escribir las palabras clave que se encuentran en el documento.
+Reconocimiento de caracteres, redes neuronales, Python, Keras, GUI, OpenCV.
 \end{IEEEkeywords}
 %%%%%%%%%%%%%%%%%%%%%%
 %\IEEEpeerreviewmaketitle
 
 
-\section{Competencias a desarrollar}
+\section{Objetivos}
 \begin{itemize}
-\item Competencia 1.
-\item Competencia 2.
-\item Competencia 3.
+\item Diseñar  y  construir  un  sistema  de  reconocimiento  de  caracteres  basado  en  redes neuronales
+\item Implementar   un   software para   la   creación,   entrenamiento   (algoritmo   de   Back-Propagation) y uso de redes neuronales
 \end{itemize}
 
 
 \section{Desarrollo de la práctica}
-En esta sección se describen los diferentes experimentos, cálculos y simulaciones solicitados, junto a los resultados obtenidos representados mediante gráficas y tablas.
+Para el desarrollo de este conjunto de objetivos propuestos de optó por crear dos modelos: manual y Keras, los cuales fueron comparados para tener mejores resultados. El modelo que fue escogido, se le agregó visión de máquina para que pudiera leer imágenes desde un directorio y así poder reconocer el patrón al que pertenece. Todo esto a través de una interfaz de usuario que permita mostrar la imagen, un vector con el porcentaje de pertenencia a cada carácter y su predicción final.
 
 \subsection{Descripción de patrones a reconocer}
+El reconocimiento de caracteres fue implementado por medio del complemento del dataset MNIST, el cual nos permite entrenar un conjunto de imágenes de dígitos con un total de más de 60.000 imágenes de entrenamiento y 10.000 de muestras o test.\\
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.37]{imagen1.png}
+    \caption{MNIST}
+    \label{1}
+\end{figure}
+El paquete de imágenes es normalizado por medio de un grid de 20x20 pixels donde se mantiene las proporciones de la imagen original, el procesamiento de las imágenes se desarrollan por medio de la herramienta TensorFlow Keras donde se llevan a cabo los siguientes pasos\\
+
+•	Importación de conjunto de datos:
+En la importación y adquisición de los datos no es necesario descargar y almacenar lo datos de forma externa ya que por medio de la librería MNIST permite la importación directa del conjunto de datos, seguido de esto se procede a almacenar los datos en variables como mnist.loaddata().\\
+
+•	Dividir el conjunto en bloques de entrenamiento y prueba:
+Teniendo en cuenta el dataset implementado en el código se realiza cuatro variables Xtrain, ytrain, Xtest y y
+test donde se realiza la respectiva independencia de los datos para su pronto procesamiento.\\
+
+•	Construcción del modelo:
+Con la implementación de las librerías para las funciones requeridas en la red neuronal por medio de las biblioteca de Keras, se procede a desarrollar el modelo secuencial con diferentes capas densas con funciones de activación, además de desarrollar los valores de los hiperparametros del modelo.\\
+
+•	Entrenamiento del modelo y resultado:
+Por ultimo se realiza el entrenamiento de la red neuronal teniendo en cuenta los hiperparametros asignados y la validación con respecto al loss y al accurracy del sistema.\\
+
 
 \subsection{Implementación del modelo manual}
+Para el modelo manual se usó Python y Numpy. El primer paso es analizar la arquitectura de la red neuronal, que es definida por medio de un vector así:
+\begin{lstlisting}
+model = [784, 16, 8, 10]
+\end{lstlisting}
+donde primero definimos la entrada de la red neuronal que en éste caso, dado que las imágenes son de tamaño 28x28 al vectorizarlas queda un vector de 784 columnas. Posteriormente se van definiendo las capas ocultas con su respectivo numero de neuronas; en éste caso, tenemos dos capas ocultas con 16 y 8 neuronas respectivamente y una capa de salida con  10 neuronas que representan los diez caracteres a reconocer.\\
+\\
+El siguiente paso es la inicialización de los parámetros (los pesos y el bias), que lo hacemos de manera aleatoria teniendo en cuenta el numero de capas que se usaron por medio de un diccionario donde cada llave representa los pesos (W) y los bias (b). Una breve representación:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.37]{iniParams.png}
+    \caption{Función de inicialización de parámetros}
+    \label{1}
+\end{figure}
+Luego definimos algunas variables como lo son el \textit{Learning rate} para el gradiente y el número de \textit{épocas de entrenamiento} con un valor de 0.1 y 50 respectivamente. Después empezamos el ciclo de entrenamiento que está alojado en un ciclo que se completa hasta llegar al número de épocas definidas. El primer paso para entrenar es el \textit{Forward Propagation}; en este paso agregamos al diccionario de parámetros los números asociados (Z) a la multiplicación matricial entre los pesos (W) y los datos de la capa anterior (A) sumándoles el bias (b) de la respectiva capa (Figura \ref{2}).
+Posteriormente se hace el proceso de \textit{Back Propagation}; donde se hallan los diferenciales en los pesos de cada neurona (Figura \ref{3}) comparándolos con la respuesta real por medio de la función de error MSE (Figura \ref{4}) y usando las diversas funciones de activación (Figura \ref{5}) guardando los valores en el diccionario de parámetros. Por último, se realiza el \textit{Ajuste de pesos} por medio del gradiente (Figura \ref{6}).\\
+\\ 
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{forward.png}
+    \caption{Función Forward}
+    \label{2}
+\end{figure}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.4]{backPropagation.png}
+    \caption{Función BackPropagation}
+    \label{3}
+\end{figure}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.55]{mseFunc.png}
+    \caption{Función de error}
+    \label{4}
+\end{figure}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.52]{actFunc.png}
+    \caption{Funciones de activación}
+    \label{5}
+\end{figure}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.4]{gradient.png}
+    \caption{Función ajuste de pesos}
+    \label{6}
+\end{figure}
 
-\subsection{Implementación del modelo con Python y Keras}
+Los resultados del error entre la respuesta correcta y la respuesta dada entrenamiento fueron los siguientes:
 
-\subsection{Comparación y elección entre los métodos propuestos}
-
+\subsection{Implementación del modelo con Keras}
+Para el segundo modelo se usó la librería Keras para redes neuronales. Lo primero que haremos es construir el modelo de la misma forma que el anterior para poder compararlos. Definimos el modelo de tal manera:\\
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{kerasVsHandModel.png}
+    \caption{Modelo en Keras}
+    \label{7}
+\end{figure}
+Posteriormente se hace el entrenamiento y se obtiene el siguiente resultado: 
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.6]{kerasVsHandErrors.png}
+    \caption{MSE en entrenamiento}
+    \label{8}
+\end{figure}
 \subsection{Ajuste del modelo}
+De acuerdo a la comparación de los resultados obtenidos se decidió usar el método con Keras para el desarrollo de la práctica. Se realizaron siete pruebas con distintos modelos para mejorar el rendimiento de la predicción de la red neuronal.\\
+\\
+El primer modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model1.png}
+    \caption{Modelo 1}
+    \label{9}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel1.png}
+    \caption{Resultados modelo 1}
+    \label{10}
+\end{figure}
+El segundo modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model2.png}
+    \caption{Modelo 2}
+    \label{11}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel2.png}
+    \caption{Resultados modelo 2}
+    \label{12}
+\end{figure}
+El tercer modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model3.png}
+    \caption{Modelo 3}
+    \label{13}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel3.png}
+    \caption{Resultados modelo 3}
+    \label{14}
+\end{figure}
+El cuarto modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model4.png}
+    \caption{Modelo 4}
+    \label{15}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel4.png}
+    \caption{Resultados modelo 4}
+    \label{16}
+\end{figure}
+El quinto modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model5.png}
+    \caption{Modelo 5}
+    \label{17}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel5.png}
+    \caption{Resultados modelo 5}
+    \label{18}
+\end{figure}
+El sexto modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model6.png}
+    \caption{Modelo 6}
+    \label{19}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel6.png}
+    \caption{Resultados modelo 6}
+    \label{20}
+\end{figure}
+El séptimo modelo está construido de la siguiente manera:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{model7.png}
+    \caption{Modelo 7}
+    \label{21}
+\end{figure}
+Y entregó los siguientes resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.27]{resultsModel7.png}
+    \caption{Resultados modelo 7}
+    \label{22}
+\end{figure}
+
+Posteriormente todos los modelos fueron puesto a prueba con datos de testeo (es decir, que no conocía antes) para evaluar su desempeño y elegir el mejor. La siguiente gráfica muestra los resultados:
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{compare1.png}
+    \caption{Resultados en entrenamiento y test (Azul y narnaja). Accuracy (Verde)}
+    \label{23}
+\end{figure}
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.5]{compare2.png}
+    \caption{Pérdida de cada modelo}
+    \label{24}
+\end{figure}
+Se optó por el quinto modelo (llamado model\_4) ya que es el que tiene menos error con respecto a los demás, aunque la diferencia entre un modelo y otro no es mucha. Aún así demostramos que existen diferencias entre cada implementación.
 
 \subsection{Implementación de visión de máquina}
+Para la identificación de caracteres, se emplea la librería Opencv, numpy y tensorflow. Adicionalmente, y para la obtención de la imagen se hace uso del programa Droidcam, que permite usar la cámara del dispositivo móvil como cámara web.\\
+Por otro lado, con el objetivo de probar el código, se toma una fotografía que servirá para definir el procesamiento de la imagen y los métodos útiles para identificar los caracteres en las imágenes.\\
+Con el fin de identificar los bordes a leer, y de predecir los valores que hay en las imágenes, se pasa la imagen a escala de grises, escala en la que resulta más sencilla para realizar contrastes en posteriores etapas del procesamiento.\\
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.35]{a.png}
+    \caption{Imagen a escala de grises}
+    \label{a}
+\end{figure}
+
+
+Debido al tipo de superficie en la que se encuentra dibujado el número, y la posibilidad de brillos fuertes en la imagen, se decide realizar una reducción de ruido en la imagen. Obteniendo la siguiente imagen de salida.\\
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.35]{b.png}
+    \caption{Imagen con reducción de ruido}
+    \label{b}
+\end{figure}
+ 
+Una vez filtrado el ruido de la imagen, se realiza la umbralización de la imagen (donde todo lo que esté en cierto rango de valores se asignará el valor máximo (255) y lo que no, el valor mínimo (0), esto con el fin de generar un alto contraste entre el fondo y la superficie de interés, para que resulte más sencillo identificar los bordes de la imagen.\\
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.35]{c.png}
+    \caption{Umbralización}
+    \label{c}
+\end{figure}
+ 
+La librería open-cv cuenta con métodos con los que se puede realizar la identificación de bordes de una imagen a partir de los contrastes existentes en las mismas.  Este método se conoce como findcontours, función a la que se le debe ingresar el tipo de aproximación a realizar, como en el caso particular se desea aproximar a una geometría simple, se ingresa “chain\_aprox\_simpe” obteniendo el siguiente resultado.\\
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.35]{d.png}
+    \caption{Detección de bordes}
+    \label{d}
+\end{figure}
+ 
+Si bien el resultado obtenido es similar a un cuadrado, este presenta demasiados vértices como para ingresarlos de una manera regular. Por lo anterior, se debe realizar una aproximación a figura geométrica que más se acerque a la forma obtenida. A partir de lo anterior, se toman los puntos de esta figura geométrica y se dibuja un cuadrado con las mismas dimensiones aproximadas buscando delimitar el área en la que se quiere detectar el símbolo.\\
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.35]{e.png}
+    \caption{Área de detección de caractér}
+    \label{e}
+\end{figure}
+ 
+Finalmente, se toman los valores que se encuentran dentro del cuadro enmarcado anteriormente, se aplica moralización nuevamente, aunque, a diferencia de la anterior vez que se realizó este procedimiento, y con el fin de hacer que los datos sean lo más parecido posible al dataset de entrenamiento (mnist) se invierten los colores de la imagen que se ingresará al modelo entrenado.
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.45]{f.png}
+    \caption{Imagen entrante a la red neuronal}
+    \label{f}
+\end{figure}
+ 
+Este dato \ref{f}, es ingresado al modelo previamente entrenado (importado con la librería tensorflow), que por medio del método predict realizará una predicción del valor en la imagen ingresada.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.25]{g.png}
+    \caption{Predicción de las imágenes}
+    \label{g}
+\end{figure}
+
 
 \subsection{Implementación de interfaz gráfica de usuario}
 
-\section{Conclusiones}
+La implementación de la interfaz gráfica se lleva a cabo por medio de la herramienta tkinter en el ambiente de programación tkinter, donde como se muestra en la siguiente figura consta de un panel donde se presenta la imagen del número a estimar, seguido de dos botones que realizan los eventos del modelo 1 y 2 de la red neuronal, además se plotean en la parte derecha de la interfaz los valores del vector y la predicción según el número y la imagen implementada.\\
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.35]{imagen2.png}
+    \caption{Interfaz grafica implementada.}
+    \label{h}
+\end{figure}
+Con respecto a la programación en el ambiente de Python se realiza en primer lugar las dimensiones y estilo de la interfaz, seguido de esto se realizan dos funciones las cuales contienen el procedimiento de predicción de caracteres con respecto a cada modelo implementado, como se ilustra en la siguiente figura, teniendo en cuenta los eventos asignados en las funciones se realiza el llamado de los eventos en la configuración de cada botón asignado en la interfaz gráfica de tkinter.\\
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.25]{imagen3.png}
+    \caption{Modelo 1 interfaz grafica}
+    \label{h}
+\end{figure}
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.25]{imagen4.png}
+    \caption{Modelo 2 interfaz grafica}
+    \label{h}
+\end{figure}
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.25]{imagen5.png}
+    \caption{Programación de botones}
+    \label{h}
+\end{figure}
 
+
+\subsection{Generación de trayectorias}
+Una vez se tienen las predicciones realizadas por el modelo, se deben obtener los puntos en los cuales se ubican los cubos de los que se leerán las imágenes. Gracias a lo realizado en el punto anterior (figura \ref{e}), cuando se realiza la aproximación a figuras geométricas simples, se deben ingresar los vértices presentes en la imagen. Por lo que los mismos son guardados en un vector con el fin de tener las coordenadas en las que se espera que el robot tenga que ubicarse para tomar los cubos. \\
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.25]{h.png}
+    \caption{Vértices empleados para trayectoria}
+    \label{h}
+\end{figure}
+Los vértices tomados se encuentran en la esquina superior izquierda de los cubos identificados. Como puntos de inicio y final del recorrido son tomados los puntos medios en la izquierda y la derecha de la imagen, por lo que finalmente, con el fin de graficar la trayectoria que debe seguir el robot, se emplea la función “draw\_line” nativa de open-cv, obteniendo:\\
+ \begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.25]{i.png}
+    \caption{Trayectoria generada}
+    \label{i}
+\end{figure}
+Estos puntos serán posteriormente pasados por un algoritmo de optimización de trayectoria con el fin de obtener un recorrido óptimo.
+
+
+\section{Conclusiones}
+Al implementar los dos modelos propuesto se pudo concluir que a pesar de que es una buena práctica saber como funciona internamente un red neuronal, es mucho más efectivo usar las herramientas que nos proporciona el avance tecnológico de hoy en día. En este caso utilizamos Keras, pero hay mas herramientas que para la construcción de redes neuronales son más útiles y precisas como lo pudimos notar. El reconocimiento de patrones funciona de manera precisa por medio de visión de máquina y es capaz de realizar las trayectorias para una aplicación de inteligencia artificial.
 
 \ifCLASSOPTIONcaptionsoff
   \newpage
@@ -127,36 +428,17 @@ En esta sección se describen los diferentes experimentos, cálculos y simulacio
 
 \begin{thebibliography}{1}
 
-\bibitem{imagenes}
-Youtube, canal schaparro. \url{https://youtu.be/IhvF6iY7n5k}. Recuperado el 30 de Enero de 2017.
+\bibitem{keras}
+\url{https://keras.io/guides/sequential_model/}
+\bibitem{mnist}
+\url{hhttp://yann.lecun.com/exdb/mnist/}
 
-\bibitem{GNUp}
-Gnuplot homepage. \url{http://www.gnuplot.info/}. Recuperado el 26 de Julio de 2018.
-
-\bibitem{dia}
-Dia Diagram Editor. \url{https://sourceforge.net/projects/dia-installer/}. Recuperado el 30 de Enero de 2017.
-
-\bibitem{xcircuit}
-XCircuit, Open Circuit Design. \url{http://opencircuitdesign.com/xcircuit/}. Recuperado el 26 de Julio de 2018.
-
-\bibitem{nombre_para_citar}
-Inicial1.~Apellido1 and Inicial2.~Apellido2, \emph{Nombre de libro}, \#edición~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Ciudad, País: Editorial, año.
-
-\bibitem{kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\bibitem{link}
-Overleaf. \url{https://www.overleaf.com/}. Recuperado el 02 de Febrero de 2017.
 
 \end{thebibliography}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% FIN DEL DOCUMENTO %%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
